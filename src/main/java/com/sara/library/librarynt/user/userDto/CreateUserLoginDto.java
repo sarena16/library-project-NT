@@ -1,11 +1,17 @@
 package com.sara.library.librarynt.user.userDto;
 
 import com.sara.library.librarynt.commonTypes.UserRole;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 
 public class CreateUserLoginDto {
 
+    @NotBlank(message = "Username is required")
+    @Schema(name= "username", example = "username")
     private String username;
 
+    @NotBlank(message = "Password is required")
+    @Schema(name = "password", example = "password")
     private String password;
 
     public CreateUserLoginDto(String username, String password) {

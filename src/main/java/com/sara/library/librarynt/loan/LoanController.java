@@ -4,13 +4,12 @@ import com.sara.library.librarynt.loan.loanDto.CreateLoanDto;
 import com.sara.library.librarynt.loan.loanDto.CreateLoanResponseDto;
 import com.sara.library.librarynt.loan.loanDto.GetLoanDto;
 import com.sara.library.librarynt.loan.loanDto.GetLoansPageResponseDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/loans")
@@ -19,26 +18,29 @@ public class LoanController {
 
     private final LoanService loanService;
 
+    @Autowired
     public LoanController(LoanService loanService) {
         this.loanService = loanService;
     }
 
     @PostMapping
-    public ResponseEntity<CreateLoanResponseDto> create(@RequestBody @Validated CreateLoanDto loanEntity){
-        var newLoan = loanService.create(loanEntity);
-        return new ResponseEntity<>(newLoan, HttpStatus.CREATED);
+    public ResponseEntity<CreateLoanResponseDto> create(@RequestBody @Validated CreateLoanDto createLoanDto) {
+        CreateLoanResponseDto createdLoan = loanService.create(createLoanDto);
+        return new ResponseEntity<>(createdLoan, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetLoanDto> getOnebyId(@PathVariable long id){
-        GetLoanDto dto = loanService.getOneById(id);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+    public ResponseEntity<GetLoanDto> getOneById(@PathVariable long id) {
+        GetLoanDto loanDto = loanService.getOneById(id);
+        return new ResponseEntity<>(loanDto, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<GetLoansPageResponseDto> getAll(@RequestParam(required = false) Long userId,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "7") int size){
-        GetLoansPageResponseDto dto = loanService.getAll(userId, page, size);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+    public ResponseEntity<GetLoansPageResponseDto> getAll(@RequestParam(required = false) Long userId,
+                                                          @RequestParam(defaultValue = "0") int page,
+                                                          @RequestParam(defaultValue = "7") int size) {
+        GetLoansPageResponseDto loansPageResponseDto = loanService.getAll(userId, page, size);
+        return new ResponseEntity<>(loansPageResponseDto, HttpStatus.OK);
     }
 }
 

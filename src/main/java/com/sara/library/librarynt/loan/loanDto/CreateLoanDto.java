@@ -1,32 +1,34 @@
 package com.sara.library.librarynt.loan.loanDto;
 
-
 import jakarta.validation.constraints.NotNull;
 
-import java.awt.print.Book;
 import java.util.Date;
 
 public class CreateLoanDto {
-    @NotNull
+
+    @NotNull(message = "User ID cannot be null")
     private Long userId;
-    @NotNull
+
+    @NotNull(message = "Book ID cannot be null")
     private Long bookId;
-    @NotNull
+
+    @NotNull(message = "Due date cannot be null")
     private Date dueDate;
 
+    public CreateLoanDto() {
+    }
 
     public CreateLoanDto(Long userId, Long bookId, Date dueDate) {
         this.userId = userId;
         this.bookId = bookId;
         this.dueDate = dueDate;
-
     }
 
     public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -34,7 +36,7 @@ public class CreateLoanDto {
         return bookId;
     }
 
-    public void setBookId(long bookId) {
+    public void setBookId(Long bookId) {
         this.bookId = bookId;
     }
 
@@ -45,10 +47,9 @@ public class CreateLoanDto {
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
+}
 
-
-
-    //
+//
 //    public BookEntity getBookEntity(BookEntity book) {
 //        return book;
 //    }
@@ -58,5 +59,5 @@ public class CreateLoanDto {
 //    }
 
 
-}
+
 

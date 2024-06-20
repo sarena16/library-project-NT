@@ -1,4 +1,4 @@
-package com.sara.library.librarynt.loan.loanDto;
+package com.sara.library.librarynt.user.userDto;
 
 public class LoginResponseDto {
     private String token;
